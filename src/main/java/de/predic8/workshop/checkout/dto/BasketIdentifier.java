@@ -1,8 +1,17 @@
 package de.predic8.workshop.checkout.dto;
 
-import lombok.Value;
-
-@Value
 public class BasketIdentifier {
-	String basket;
+	private final String basket;
+
+	public BasketIdentifier(String basket) {
+		this.basket = basket;
+	}
+
+	public String getBasket() {
+		return this.basket;
+	}
+
+	public String toString() {
+		return "BasketIdentifier(basket=" + basket + ")";
+	}
 }

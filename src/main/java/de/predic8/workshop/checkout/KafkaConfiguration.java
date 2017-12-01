@@ -2,7 +2,6 @@ package de.predic8.workshop.checkout;
 
 
 import de.predic8.workshop.checkout.event.Operation;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +12,6 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
-@RequiredArgsConstructor
 @EnableKafka
 @Configuration
 public class KafkaConfiguration {
