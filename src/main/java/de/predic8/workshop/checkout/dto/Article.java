@@ -7,6 +7,9 @@ public class Article {
 	private long quantity;
 	private BigDecimal price;
 
+	public Article() {
+	}
+
 	public Article(String article, long quantity, BigDecimal price) {
 		this.article = article;
 		this.quantity = quantity;

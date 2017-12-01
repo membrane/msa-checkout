@@ -1,7 +1,10 @@
 package de.predic8.workshop.checkout.dto;
 
 public class BasketIdentifier {
-	private final String basket;
+	private String basket;
+
+	public BasketIdentifier() {
+	}
 
 	public BasketIdentifier(String basket) {
 		this.basket = basket;
