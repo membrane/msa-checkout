@@ -20,19 +20,20 @@ import java.util.UUID;
 @RestController
 public class CheckoutRestController {
 	private final CheckoutService checkoutService;
-	private final KafkaTemplate<String, Operation> kafkaTemplate;
+	private final KafkaTemplate<String, Operation> kafka;
 	private final ObjectMapper objectMapper;
 	private final Map<String, BigDecimal> prices;
 
 	public CheckoutRestController(CheckoutService checkoutService, KafkaTemplate<String, Operation> kafkaTemplate, ObjectMapper objectMapper, Map<String, BigDecimal> prices) {
 		this.checkoutService = checkoutService;
-		this.kafkaTemplate = kafkaTemplate;
+		this.kafka = kafkaTemplate;
 		this.objectMapper = objectMapper;
 		this.prices = prices;
 	}
 
 	@PostMapping("/checkouts")
 	public ResponseEntity<?> save(@RequestBody Basket basket) {
+
 		if (!checkoutService.areArticlesAvailable(basket)) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
@@ -41,7 +42,7 @@ public class CheckoutRestController {
 		basket.setUuid(uuid);
 		basket.getItems().forEach(i -> i.setPrice(prices.get(i.getArticle())));
 
-		kafkaTemplate.send("shop", new Operation("basket", "create", objectMapper.valueToTree(basket)));
+		kafka.send("shop", new Operation("basket", "create", objectMapper.valueToTree(basket)));
 
 		return ResponseEntity
 			.accepted()
