@@ -46,26 +46,26 @@ public class CheckoutApplication {
 		SpringApplication.run(CheckoutApplication.class, args);
 	}
 
-	@Bean
-	@ConditionalOnMissingBean
-	public ZipkinSpanReporter reporter(SpanMetricReporter reporter, ZipkinProperties zipkin,
-									   ZipkinRestTemplateCustomizer customizer) {
-
-		RestTemplate rest = new RestTemplate();
-		customizer.customize(rest);
-
-		List<ServiceInstance> instances = discovery.getInstances("zipkin-service");
-
-		if (instances.size() == 0 ) {
-			System.out.println("Please start zipkin Server!");
-			return null;
-		}
-		ServiceInstance instance = instances.get(0);
-
-		String uri = instance.getUri().toString();
-
-		System.out.println("instance.getUri().toString() = " + uri);
-
-		return new HttpZipkinSpanReporter(rest, uri, zipkin.getFlushInterval(), reporter);
-	}
+//	@Bean
+//	@ConditionalOnMissingBean
+//	public ZipkinSpanReporter reporter(SpanMetricReporter reporter, ZipkinProperties zipkin,
+//									   ZipkinRestTemplateCustomizer customizer) {
+//
+//		RestTemplate rest = new RestTemplate();
+//		customizer.customize(rest);
+//
+//		List<ServiceInstance> instances = discovery.getInstances("zipkin-service");
+//
+//		if (instances.size() == 0 ) {
+//			System.out.println("Please start zipkin Server!");
+//			return null;
+//		}
+//		ServiceInstance instance = instances.get(0);
+//
+//		String uri = instance.getUri().toString();
+//
+//		System.out.println("instance.getUri().toString() = " + uri);
+//
+//		return new HttpZipkinSpanReporter(rest, uri, zipkin.getFlushInterval(), reporter);
+//	}
 }

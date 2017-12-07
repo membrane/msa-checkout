@@ -3,7 +3,7 @@ package de.predic8.workshop.checkout.event;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class Operation {
-	private String type;
+	private String bo;
 	private String action;
 	private JsonNode object;
 
@@ -11,13 +11,13 @@ public class Operation {
 	}
 
 	public Operation(String type, String action, JsonNode object) {
-		this.type = type;
+		this.bo = type;
 		this.action = action;
 		this.object = object;
 	}
 
-	public String getType() {
-		return this.type;
+	public String getBo() {
+		return this.bo;
 	}
 
 	public String getAction() {
@@ -29,6 +29,6 @@ public class Operation {
 	}
 
 	public String toString() {
-		return "Operation(type=" + this.getType() + ", action=" + this.getAction() + ", object=" + this.getObject() + ")";
+		return "Operation<<< bo=" + bo + " action=" + action + " object=" + object + ">>>";
 	}
 }
