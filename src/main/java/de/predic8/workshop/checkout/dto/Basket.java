@@ -3,9 +3,10 @@ package de.predic8.workshop.checkout.dto;
 import java.util.List;
 
 public class Basket {
+
 	private String uuid;
 	private String customer;
-	private List<Article> items;
+	private List<Item> items;
 
 	public Basket() {
 	}
@@ -18,7 +19,7 @@ public class Basket {
 		return this.customer;
 	}
 
-	public List<Article> getItems() {
+	public List<Item> getItems() {
 		return this.items;
 	}
 
