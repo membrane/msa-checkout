@@ -3,7 +3,6 @@ package de.predic8.workshop.checkout.service;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import de.predic8.workshop.checkout.dto.Basket;
 import de.predic8.workshop.checkout.dto.Stock;
-import de.predic8.workshop.checkout.web.LogJSONHandlerIntercepter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -30,9 +29,7 @@ public class CheckoutService {
 	public boolean areArticlesAvailable(Basket basket) {
 
 		return basket.getItems().stream().allMatch(item -> {
-
-				Stock stock = rest.getForObject("http://stock/stocks/{uuid}", Stock.class, item.getArticleId());
-
+				Stock stock = rest.getForObject("http://localhost:8081/stocks/{uuid}", Stock.class, item.getArticleId());
 				return stock.getQuantity() >= item.getQuantity();
 			}
 		);

@@ -27,7 +27,7 @@ public class CheckoutApplication {
 	}
 
 	@Bean
-	@LoadBalanced
+	//@LoadBalanced
 	public RestTemplate template() { return new RestTemplate();}
 
 	public static void main(String[] args) {

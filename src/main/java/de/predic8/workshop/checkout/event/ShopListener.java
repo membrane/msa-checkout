@@ -10,8 +10,12 @@ import org.springframework.kafka.annotation.PartitionOffset;
 import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Map;
+
+import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Service
 public class ShopListener {
@@ -27,10 +31,10 @@ public class ShopListener {
 	}
 
 	@KafkaListener(id = "checkout",
-			topicPartitions =
-					{ @TopicPartition(topic = "shop",
-							partitionOffsets = @PartitionOffset(partition = "0", initialOffset = "0"))})
-	public void listen(Operation op) {
+		topicPartitions =
+			{@TopicPartition(topic = "shop",
+				partitionOffsets = @PartitionOffset(partition = "0", initialOffset = "0"))})
+	public void listen(Operation op) throws InvocationTargetException, IllegalAccessException {
 
 		if (!op.getBo().equals("article"))
 			return;
@@ -41,8 +45,16 @@ public class ShopListener {
 
 		switch (op.getAction()) {
 			case "create":
-			case "update":
 				prices.put(price.getUuid(), price.getPrice());
+
+				break;
+			case "update":
+				BigDecimal old = prices.get(price.getUuid());
+
+				if (price.getPrice() == null) return;
+
+				prices.put(price.getUuid(), old);
+
 				break;
 			case "delete":
 				prices.remove(price.getUuid());

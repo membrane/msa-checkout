@@ -2,6 +2,7 @@ package de.predic8.workshop.checkout.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.predic8.workshop.checkout.dto.Basket;
+import de.predic8.workshop.checkout.dto.BasketIdentifier;
 import de.predic8.workshop.checkout.error.NoPriceException;
 import de.predic8.workshop.checkout.event.Operation;
 import de.predic8.workshop.checkout.service.CheckoutService;
@@ -24,8 +25,6 @@ import java.util.concurrent.TimeoutException;
 @RestController
 public class CheckoutRestController {
 
-	private final Logger log = LoggerFactory.getLogger(CheckoutRestController.class);
-
 	private final CheckoutService checkoutService;
 	private final KafkaTemplate<String, Operation> kafka;
 	private final ObjectMapper mapper;
@@ -39,7 +38,7 @@ public class CheckoutRestController {
 	}
 
 	@PostMapping("/checkouts")
-		public ResponseEntity<?> save(@RequestBody Basket basket) throws Exception {
+		public ResponseEntity<BasketIdentifier> save(@RequestBody Basket basket) throws Exception {
 
 		if (!checkoutService.areArticlesAvailable(basket)) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -61,6 +60,6 @@ public class CheckoutRestController {
 
 		return ResponseEntity
 			.accepted()
-			.body(basket);
+			.body(new BasketIdentifier(uuid));
 	}
 }
