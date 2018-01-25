@@ -29,7 +29,7 @@ public class CheckoutService {
 	public boolean areArticlesAvailable(Basket basket) {
 
 		return basket.getItems().stream().allMatch(item -> {
-				Stock stock = rest.getForObject("http://localhost:8081/stocks/{uuid}", Stock.class, item.getArticleId());
+				Stock stock = rest.getForObject("http://localhost/stocks/{uuid}", Stock.class, item.getArticleId());
 				return stock.getQuantity() >= item.getQuantity();
 			}
 		);

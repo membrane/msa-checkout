@@ -3,6 +3,8 @@
     <include resource="org/springframework/boot/logging/logback/base.xml" />
     <include resource="com/predic8/logging/logback-json.xml"/>
 
+    <springProperty scope="context" name="service" source="spring.application.name"/>
+
     <root level="info">
         <appender-ref ref="stash"/>
         <appender-ref ref="jsonStdout"/>

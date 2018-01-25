@@ -9,7 +9,6 @@ public class Item {
 
     private String articleId;
     private int quantity;
-    private BigDecimal price;
 
     public String getArticleId() {
         return articleId;
@@ -18,6 +17,8 @@ public class Item {
     public void setArticleId(String articleId) {
         this.articleId = articleId;
     }
+
+    private BigDecimal price;
 
     public int getQuantity() {
         return quantity;

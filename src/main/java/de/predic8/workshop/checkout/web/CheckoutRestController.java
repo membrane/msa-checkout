@@ -6,8 +6,6 @@ import de.predic8.workshop.checkout.dto.BasketIdentifier;
 import de.predic8.workshop.checkout.error.NoPriceException;
 import de.predic8.workshop.checkout.event.Operation;
 import de.predic8.workshop.checkout.service.CheckoutService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -18,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 @RestController
 public class CheckoutRestController {
@@ -45,7 +41,9 @@ public class CheckoutRestController {
 		}
 
 		String uuid = UUID.randomUUID().toString();
+
 		basket.setUuid(uuid);
+
 		basket.getItems().forEach(i -> {
 			BigDecimal price = prices.get(i.getArticleId());
 			if (price == null) throw new NoPriceException();
