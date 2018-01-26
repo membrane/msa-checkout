@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.logstash.logback.marker.Markers.appendEntries;
+//import static net.logstash.logback.marker.Markers.appendEntries;
 
 public class Operation {
 
@@ -23,6 +23,18 @@ public class Operation {
 	public Operation(String bo, String action, JsonNode object) {
 		this.bo = bo;
 		this.action = action;
+		this.object = object;
+	}
+
+	public void setBo(String bo) {
+		this.bo = bo;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
+	public void setObject(JsonNode object) {
 		this.object = object;
 	}
 
@@ -58,7 +70,7 @@ public class Operation {
 		entries.put("object", object);
 		entries.put("direction", direction);
 
-		log.info(appendEntries(entries),"");
+//		log.info(appendEntries(entries),"");
 	}
 
 }
