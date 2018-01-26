@@ -1,10 +1,8 @@
 package de.predic8.workshop.checkout;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
@@ -27,7 +25,7 @@ public class CheckoutApplication {
 	}
 
 	@Bean
-	//@LoadBalanced
+	@LoadBalanced
 	public RestTemplate template() { return new RestTemplate();}
 
 	public static void main(String[] args) {
