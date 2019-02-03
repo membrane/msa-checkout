@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static org.springframework.boot.SpringApplication.run;
+
 @SpringBootApplication
 public class CheckoutApplication {
 	@Bean
@@ -20,7 +22,7 @@ public class CheckoutApplication {
 	public RestTemplate template() { return new RestTemplate();}
 
 	public static void main(String[] args) {
-		SpringApplication.run(CheckoutApplication.class, args);
+		run(CheckoutApplication.class, args);
 	}
 
 }
