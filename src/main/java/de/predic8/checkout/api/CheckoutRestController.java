@@ -1,11 +1,11 @@
-package de.predic8.workshop.checkout.web;
+package de.predic8.checkout.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.predic8.workshop.checkout.dto.Basket;
-import de.predic8.workshop.checkout.dto.BasketIdentifier;
-import de.predic8.workshop.checkout.error.NoPriceException;
-import de.predic8.workshop.checkout.event.Operation;
-import de.predic8.workshop.checkout.service.CheckoutService;
+import de.predic8.checkout.model.Basket;
+import de.predic8.checkout.error.NoPriceException;
+import de.predic8.checkout.event.Operation;
+import de.predic8.checkout.model.BasketIdentifier;
+import de.predic8.checkout.service.CheckoutService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;

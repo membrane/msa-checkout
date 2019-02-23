@@ -1,6 +1,5 @@
-package de.predic8.workshop.checkout;
+package de.predic8.checkout;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
@@ -13,13 +12,14 @@ import static org.springframework.boot.SpringApplication.run;
 
 @SpringBootApplication
 public class CheckoutApplication {
+
 	@Bean
 	public Map<String, BigDecimal> prices() {
 		return new ConcurrentHashMap<>();
 	}
 
 	@Bean
-	public RestTemplate template() { return new RestTemplate();}
+	public RestTemplate rest() { return new RestTemplate();}
 
 	public static void main(String[] args) {
 		run(CheckoutApplication.class, args);

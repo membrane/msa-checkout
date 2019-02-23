@@ -1,4 +1,4 @@
-package de.predic8.workshop.checkout.error;
+package de.predic8.checkout.error;
 
 public class NoPriceException extends RuntimeException {
 }

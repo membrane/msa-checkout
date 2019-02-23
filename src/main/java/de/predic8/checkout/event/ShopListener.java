@@ -1,8 +1,8 @@
-package de.predic8.workshop.checkout.event;
+package de.predic8.checkout.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.predic8.workshop.checkout.dto.Price;
-import de.predic8.workshop.checkout.web.CheckoutRestController;
+import de.predic8.checkout.model.Price;
+import de.predic8.checkout.api.CheckoutRestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Map;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
@@ -44,14 +43,14 @@ public class ShopListener {
 		Price price = mapper.convertValue(op.getObject(), Price.class);
 
 		switch (op.getAction()) {
-			case "create":
-				prices.put(price.getUuid(), price.getPrice());
-
-				break;
-			case "update":
-				BigDecimal old = prices.get(price.getUuid());
+			case "upsert":
 
 				if (price.getPrice() == null) return;
+
+				BigDecimal old = prices.get(price.getUuid());
+
+				if ( old == null)
+					old = price.getPrice();
 
 				prices.put(price.getUuid(), old);
 

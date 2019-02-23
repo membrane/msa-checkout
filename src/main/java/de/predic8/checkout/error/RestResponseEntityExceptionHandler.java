@@ -1,7 +1,6 @@
-package de.predic8.workshop.checkout.error;
+package de.predic8.checkout.error;
 
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

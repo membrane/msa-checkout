@@ -1,8 +1,8 @@
-package de.predic8.workshop.checkout;
+package de.predic8.checkout;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import de.predic8.workshop.checkout.event.Operation;
+import de.predic8.checkout.event.Operation;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -17,39 +17,45 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
+import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
+
 @EnableKafka
 @Configuration
 public class KafkaConfiguration {
 
 
 	/**
-     * Do not use headers! Otherwise the class info in the headers will be used
-	 *
-	 * @param props
-     * @return
-     */
-	@Bean
-	public ConsumerFactory<String, Operation> consumerFactory(KafkaProperties props) {
-		return new DefaultKafkaConsumerFactory<>( props.buildConsumerProperties(),
-				new StringDeserializer(),
-				new JsonDeserializer( Operation.class, false));
-	}
-
-	/**
-	 * Custom mapper with identation
+	 * Do not use headers! Otherwise the class info in the headers will be used
 	 *
 	 * @param props
 	 * @return
 	 */
 	@Bean
-	public ProducerFactory<Object, Object> producerFactory(KafkaProperties props) {
+	public ConsumerFactory<String, Operation> consumerFactory(KafkaProperties props) {
+		return new DefaultKafkaConsumerFactory<>( props.buildConsumerProperties(),
+				new StringDeserializer(),
+				new JsonDeserializer<>(Operation.class, false));
+	}
 
+
+	@Bean
+	public ProducerFactory<Object, Object> producerFactory( KafkaProperties props) {
+
+		return new DefaultKafkaProducerFactory<>(props.buildProducerProperties(), new StringSerializer(), (JsonSerializer) getJSONSerializer());
+	}
+
+	private JsonSerializer<Operation> getJSONSerializer() {
+		return new JsonSerializer<Operation>(getObjectMapper());
+	}
+
+	/**
+	 * Custom mapper with identation
+	 *
+	 */
+	private ObjectMapper getObjectMapper() {
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-		JsonSerializer ser =  new JsonSerializer<Operation>(mapper);
-
-		return new DefaultKafkaProducerFactory<>(props.buildProducerProperties(), new StringSerializer(),ser);
+		mapper.enable( INDENT_OUTPUT);
+		return mapper;
 	}
 
 

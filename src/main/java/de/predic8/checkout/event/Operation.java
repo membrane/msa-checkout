@@ -1,4 +1,4 @@
-package de.predic8.workshop.checkout.event;
+package de.predic8.checkout.event;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;

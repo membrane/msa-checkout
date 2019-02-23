@@ -1,4 +1,4 @@
-package de.predic8.workshop.checkout.dto;
+package de.predic8.checkout.model;
 
 import java.util.List;
 

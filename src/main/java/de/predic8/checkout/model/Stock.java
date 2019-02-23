@@ -1,6 +1,7 @@
-package de.predic8.workshop.checkout.dto;
+package de.predic8.checkout.model;
 
 public class Stock {
+
 	private String uuid;
     private long quantity;
 
