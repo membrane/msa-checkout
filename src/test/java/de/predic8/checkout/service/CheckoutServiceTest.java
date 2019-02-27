@@ -33,15 +33,16 @@ public class CheckoutServiceTest {
         cs = new CheckoutService(rest);
     }
 
-    @Test
-    public void enough() {
+//    @Test
+//    public void enough() {
+//
+//        Item i = new Item();
+//        i.setQuantity(10);
+//        i.setArticleId("42");
+//
+//        assertTrue(cs.enough(i),"Compute enough stock");
+//
+//        ms.verify();
+//    }
 
-        Item i = new Item();
-        i.setQuantity(10);
-        i.setArticleId("42");
-
-        assertTrue(cs.enough(i),"Compute enough stock");
-
-        ms.verify();
-    }
 }
