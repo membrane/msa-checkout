@@ -18,6 +18,11 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.UUID.randomUUID;
+import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.ResponseEntity.accepted;
+import static org.springframework.http.ResponseEntity.status;
+
 @RestController
 public class CheckoutRestController {
 
@@ -34,13 +39,13 @@ public class CheckoutRestController {
 	}
 
 	@PostMapping("/checkouts")
-		public ResponseEntity<BasketIdentifier> save(@RequestBody Basket basket) throws Exception {
+	public ResponseEntity<BasketIdentifier> save(@RequestBody Basket basket) throws Exception {
 
 		if (!checkoutService.areArticlesAvailable(basket)) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+			return status( CONFLICT).build();
 		}
 
-		String uuid = UUID.randomUUID().toString();
+		String uuid = randomUUID().toString();
 
 		basket.setUuid(uuid);
 
@@ -56,8 +61,7 @@ public class CheckoutRestController {
 
 		kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
 
-		return ResponseEntity
-			.accepted()
+		return accepted()
 			.body(new BasketIdentifier(uuid));
 	}
 }
