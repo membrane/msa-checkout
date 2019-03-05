@@ -50,7 +50,7 @@ public class CheckoutRestController {
 			i.setPrice(price);
 		});
 
-		Operation op = new Operation("basket", "create", mapper.valueToTree(basket));
+		Operation op = new Operation("basket", "upsert", mapper.valueToTree(basket));
 
 		op.logSend();
 
